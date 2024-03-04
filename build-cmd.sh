@@ -49,7 +49,7 @@ pushd $builddir
 case "$AUTOBUILD_PLATFORM" in
 windows*)
         cmake $(cygpath -w "$srcdir") -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$top/release")
-        cmake --build . --target install --config Release
+        cmake --build . --target install --config Release -j
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         mkdir -p "$stage/bin"
         cp -v ../release/bin/*.dll "$stage/bin"
@@ -57,7 +57,7 @@ windows*)
 darwin*|linux64*)
         
         cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON
-        cmake --build . --target install --config Release
+        cmake --build . --target install --config Release -j
 
 	# TODO - add .so support for linux
         cp -v "$top"/release/lib/*.dylib "$stage/lib/release/"
