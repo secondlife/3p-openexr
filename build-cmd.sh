@@ -44,9 +44,7 @@ builddir="$top/build"
 mkdir -p $builddir
 mkdir -p $stage
 
-pushd
-
-cd $builddir
+pushd $builddir
 
 case "$AUTOBUILD_PLATFORM" in
         windows*)
