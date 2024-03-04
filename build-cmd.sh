@@ -55,7 +55,7 @@ case "$AUTOBUILD_PLATFORM" in
 ;;
 darwin*|linux64*)
         
-        cmake .. --install-prefix ../release
+        cmake .. --install-prefix "$top/release"
         cmake --build . --target install --config Release
 
         cp -v ../release/lib/*.a "$stage/lib/release/"
