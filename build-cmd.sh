@@ -39,6 +39,7 @@ srcdir = "$top/openexr"
 builddir = "$top/build"
 
 mkdir -p $builddir
+mkdir -p $stage
 
 pushd
 
