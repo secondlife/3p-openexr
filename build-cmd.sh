@@ -51,7 +51,8 @@ case "$AUTOBUILD_PLATFORM" in
         cmake $(cygpath -w "$srcdir") -DCMAKE_INSTALL_PREFIX=../release
         cmake --build . --target install --config Release
         cp -v ../release/lib/*.lib "$stage/lib/release/"
-        cp -rv ../release/bin/*.dll "$stage/bin"
+        mkdir -p "$stage/bin"
+        cp -v ../release/bin/*.dll "$stage/bin"
 ;;
 darwin*|linux64*)
         
