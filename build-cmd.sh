@@ -38,20 +38,15 @@ build=${AUTOBUILD_BUILD_ID:=0}
 mkdir -p "$stage/include/OpenEXR"
 mkdir -p "$stage/lib/release"
 
-srcdir = "$top/openexr"
-builddir = "$top/build"
+srcdir="$top/openexr"
+builddir="$top/build"
 
 mkdir -p $builddir
 mkdir -p $stage
 
-echo $builddir
-echo $srcdir
-
 pushd
 
 cd $builddir
-
-echo "Building for $AUTOBUILD_PLATFORM"
 
 case "$AUTOBUILD_PLATFORM" in
         windows*)
