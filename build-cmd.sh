@@ -56,7 +56,7 @@ windows*)
 ;;
 darwin*|linux64*)
         
-        cmake $srcdir --install-prefix "$top/release"
+        cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON
         cmake --build . --target install --config Release
 
 	# TODO - add .so support for linux
