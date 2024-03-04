@@ -22,6 +22,9 @@ fi
 top="$(pwd)"
 stage="$(pwd)/stage"
 
+echo $top
+echo $stage
+
 # load autobuild provided shell functions and variables
 source_environment_tempfile="$stage/source_environment.sh"
 "$autobuild" source_environment > "$source_environment_tempfile"
@@ -41,9 +44,14 @@ builddir = "$top/build"
 mkdir -p $builddir
 mkdir -p $stage
 
+echo $builddir
+echo $srcdir
+
 pushd
 
 cd $builddir
+
+echo "Building for $AUTOBUILD_PLATFORM"
 
 case "$AUTOBUILD_PLATFORM" in
         windows*)
@@ -53,6 +61,7 @@ case "$AUTOBUILD_PLATFORM" in
         cp -rv ../release/bin/*.dll "$stage/bin"
 ;;
 darwin*|linux64*)
+        
         cmake .. --install-prefix ../release
         cmake --build . --target install --config Release
 
