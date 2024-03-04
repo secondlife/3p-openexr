@@ -47,8 +47,8 @@ mkdir -p $stage
 pushd $builddir
 
 case "$AUTOBUILD_PLATFORM" in
-        windows*)
-        cmake $(cygpath -w "$srcdir") -DCMAKE_INSTALL_PREFIX=../release
+windows*)
+        cmake $(cygpath -w "$srcdir") -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$top/release")
         cmake --build . --target install --config Release
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         mkdir -p "$stage/bin"
@@ -59,12 +59,13 @@ darwin*|linux64*)
         cmake $srcdir --install-prefix "$top/release"
         cmake --build . --target install --config Release
 
-        cp -v ../release/lib/*.a "$stage/lib/release/"
+	# TODO - add .so support for linux
+        cp -v "$top"/release/lib/*.dylib "$stage/lib/release/"
 ;;
 esac
 
-cp -rv ../release/include/OpenEXR "$stage/include/OpenEXR"
-cp -rv ../release/include/Imath "$stage/include/Imath"
+cp -rv "$top/release/include/OpenEXR" "$stage/include/OpenEXR"
+cp -rv "$top/release/include/Imath" "$stage/include/Imath"
 
 popd
 
