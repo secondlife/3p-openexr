@@ -70,3 +70,5 @@ popd
 
 mkdir -p "$stage/LICENSES"
 cp "$top/LICENSE" "$stage/LICENSES/openexr.txt"
+cp -v $top/VERSION.txt $stage/VERSION.txt
+
