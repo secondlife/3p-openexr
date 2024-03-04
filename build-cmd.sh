@@ -48,14 +48,14 @@ pushd $builddir
 
 case "$AUTOBUILD_PLATFORM" in
         windows*)
-        cmake .. -DCMAKE_INSTALL_PREFIX=../release
+        cmake $srcdir -DCMAKE_INSTALL_PREFIX=../release
         cmake --build . --target install --config Release
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         cp -rv ../release/bin/*.dll "$stage/bin"
 ;;
 darwin*|linux64*)
         
-        cmake .. --install-prefix "$top/release"
+        cmake $srcdir --install-prefix "$top/release"
         cmake --build . --target install --config Release
 
         cp -v ../release/lib/*.a "$stage/lib/release/"
