@@ -35,7 +35,6 @@ source "$(dirname "$AUTOBUILD_VARIABLES_FILE")/functions"
 
 build=${AUTOBUILD_BUILD_ID:=0}
 
-mkdir -p "$stage/include/OpenEXR"
 mkdir -p "$stage/lib/release"
 
 srcdir="$top/openexr"
@@ -64,8 +63,7 @@ darwin*|linux64*)
 ;;
 esac
 
-cp -rv "$top/release/include/OpenEXR" "$stage/include/OpenEXR"
-cp -rv "$top/release/include/Imath" "$stage/include/Imath"
+cp -rv "$top/release/include" "$stage"
 
 popd
 
