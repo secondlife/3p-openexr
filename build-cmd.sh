@@ -52,7 +52,7 @@ windows*)
         cmake --build . --target install --config Release -j
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         mkdir -p "$stage/bin/release"
-        cp -v ../release/bin/*.dll "$stage/lib/release"
+        cp -v ../release/bin/*.dll "$stage/bin/release"
 ;;
 darwin*|linux64*)
         
