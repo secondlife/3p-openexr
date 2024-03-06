@@ -51,8 +51,7 @@ windows*)
         cmake $(cygpath -w "$srcdir") -DCMAKE_INSTALL_PREFIX=$(cygpath -w "$top/release")
         cmake --build . --target install --config Release -j
         cp -v ../release/lib/*.lib "$stage/lib/release/"
-        mkdir -p "$stage/bin"
-        cp -v ../release/bin/*.dll "$stage/bin"
+        cp -v ../release/bin/*.dll "$stage/lib/release"
 ;;
 darwin*|linux64*)
         
