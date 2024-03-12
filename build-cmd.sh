@@ -21,30 +21,26 @@ fi
 
 top="$(pwd)"
 stage="$(pwd)/stage"
+srcdir="$top/openexr"
+builddir="$top/build"
 
-echo $top
-echo $stage
+# remove_cxxstd
+source "$(dirname "$AUTOBUILD_VARIABLES_FILE")/functions"
+
+mkdir -p "$stage/include" "$stage/lib/release" $builddir
+
+build=${AUTOBUILD_BUILD_ID:=0}
+version=$(cat VERSION.txt)
+echo "${version}.${build}" > "${stage}/VERSION.txt"
 
 # load autobuild provided shell functions and variables
 source_environment_tempfile="$stage/source_environment.sh"
 "$autobuild" source_environment > "$source_environment_tempfile"
 . "$source_environment_tempfile"
 
-# remove_cxxstd
-source "$(dirname "$AUTOBUILD_VARIABLES_FILE")/functions"
-
-build=${AUTOBUILD_BUILD_ID:=0}
-
-mkdir -p "$stage/include/OpenEXR"
-mkdir -p "$stage/lib/release"
-
-srcdir="$top/openexr"
-builddir="$top/build"
-
-mkdir -p $builddir
-mkdir -p $stage
-
 pushd $builddir
+
+#exit
 
 case "$AUTOBUILD_PLATFORM" in
         windows*)
@@ -53,19 +49,24 @@ case "$AUTOBUILD_PLATFORM" in
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         cp -rv ../release/bin/*.dll "$stage/bin"
 ;;
-darwin*|linux64*)
-        
+darwin*)
         cmake .. --install-prefix ../release
         cmake --build . --target install --config Release
 
         cp -v ../release/lib/*.a "$stage/lib/release/"
 ;;
-esac
+linux64)
+        cmake "$top/openexr" -DOPENEXR_LIB_SUFFIX= -DBUILD_SHARED_LIBS=OFF --install-prefix "$top/release"
+        cmake --build . -j$(nproc) --target install --config Release
+        cp -a $top/release/lib/{libIex.a,libIlmThread.a,libOpenEXR.a,libOpenEXRCore.a,libOpenEXRUtil.a} "$stage/lib/release/"
+;;
 
-cp -rv ../release/include/OpenEXR "$stage/include/OpenEXR"
-cp -rv ../release/include/Imath "$stage/include/Imath"
+esac
 
 popd
 
+cp -ra "release/include/OpenEXR" "$stage/include"
+cp -ra "release/include/Imath" "$stage/include"
+
 mkdir -p "$stage/LICENSES"
-cp "$top/LICENSE" "$stage/LICENSES/openexr.txt"
+cp LICENSE "$stage/LICENSES/OpenEXR.txt"

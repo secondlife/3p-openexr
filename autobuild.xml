@@ -40,7 +40,7 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>LICENSES/openexr.txt</string>
+            <string>LICENSES/OpenEXR.txt</string>
             <string>include</string>
             <string>lib</string>
           </array>
@@ -96,12 +96,15 @@
               <string>default</string>
             </map>
           </map>
+          <key>manifest</key>
+          <array>
+          </array>
           <key>name</key>
-          <string>darwin</string>
+          <string>linux64</string>
         </map>
       </map>
       <key>source_directory</key>
-      <string>lua</string>
+      <string>openexr</string>
       <key>source_type</key>
       <string>git</string>
       <key>version_file</key>
