@@ -52,8 +52,18 @@ windows*)
         cp -v ../release/lib/*.lib "$stage/lib/release/"
         cp -v ../release/bin/*.dll "$stage/lib/release/"
 ;;
-darwin*|linux64*)
-        
+darwin*)
+        cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64"
+        cmake --build . --target install --config Release -j
+
+        # check architectures to verify universal build worked, should contain "x86_64 arm64"
+        built_archs="$(lipo -archs "$stage/lib/release/libOpenEXR-3_2.a")"
+        echo "checking built architectures in libOpenEXR-3_2.a: '$built_archs'.  expected 'x86_64 arm64'"
+        test 'x86_64 arm64' = "$built_archs"
+
+        cp -v "$top"/release/lib/*.a "$stage/lib/release/"
+;;
+linux64*)
         cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF
         cmake --build . --target install --config Release -j
 

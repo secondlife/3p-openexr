@@ -92,7 +92,7 @@
             </map>
           </map>
           <key>name</key>
-          <string>darwin</string>
+          <string>linux64</string>
         </map>
       </map>
       <key>source_directory</key>
