@@ -54,11 +54,10 @@ windows*)
 ;;
 darwin*|linux64*)
         
-        cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON
+        cmake $srcdir --install-prefix "$top/release" -DOPENEXR_FORCE_INTERNAL_IMATH:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF
         cmake --build . --target install --config Release -j
 
-	# TODO - add .so support for linux
-        cp -v "$top"/release/lib/*.dylib "$stage/lib/release/"
+        cp -v "$top"/release/lib/*.a "$stage/lib/release/"
 ;;
 esac
 
