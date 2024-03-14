@@ -12,7 +12,7 @@
       <key>license</key>
       <string>OpenEXR</string>
       <key>license_file</key>
-      <string>LICENSES/openexr.txt</string>
+      <string>LICENSES/OpenEXR.txt</string>
       <key>name</key>
       <string>openexr</string>
       <key>platforms</key>
@@ -40,6 +40,7 @@
           </map>
           <key>manifest</key>
           <array>
+            <string>LICENSES/OpenEXR.txt</string>
             <string>include</string>
             <string>lib</string>
           </array>
